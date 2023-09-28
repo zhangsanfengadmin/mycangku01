@@ -3,8 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baidu.mapper.UserMapper">
-    <select id="findUsers" resultType="User">
-        select   *   from   user
+    <select id="findUsers" parameterType="string" resultType="User">
+        select * from user
+        <where>
+            <if test="value!=null  and  value!=''">
+                username like '%${value}%'
+            </if>
+        </where>
     </select>
     <delete id="delById" parameterType="int">
         delete  from   user  where uid=#{value}

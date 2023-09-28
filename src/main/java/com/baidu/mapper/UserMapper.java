@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface UserMapper {
-    List<User> findUsers();
+    List<User> findUsers(String username);
 
     void delById(Integer uid);
 
