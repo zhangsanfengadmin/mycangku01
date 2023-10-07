@@ -1,13 +1,26 @@
 package com.baidu.pojo;
 
-import java.io.Serializable;
+import org.springframework.format.annotation.DateTimeFormat;
 
-public class User  implements Serializable {
-    private   Integer   uid;
-    private   String  username;
-    private   String  password;
-    private   String  address;
-    private   String  phone;
+import java.io.Serializable;
+import java.util.Date;
+
+public class User implements Serializable {
+    private Integer uid;
+    private String username;
+    private String password;
+    private String address;
+    private String phone;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birth;//日期
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
 
     public Integer getUid() {
         return uid;

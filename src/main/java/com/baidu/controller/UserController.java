@@ -29,7 +29,7 @@ public class UserController {
     @GetMapping("showPage")
     public PageInfo<User> findPage(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize,
-                                   String   username) {
+                                   String username) {
         PageHelper.startPage(pageNum, pageSize);
         List<User> users = userService.findUsers(username);
         PageInfo<User> pageInfo = new PageInfo<>(users);
@@ -46,9 +46,11 @@ public class UserController {
             e.printStackTrace();
         }
     }
-     //修改
+
+    //修改
     @PostMapping("updateUser")
     public String updateUser(@RequestBody User user) {
+        System.out.println(user.getBirth());
         //处理
         int len = userService.updateUser(user);
         if (len > 0) {
@@ -56,7 +58,8 @@ public class UserController {
         }
         return "no";
     }
-     //添加  uid=2&username=zhangsan&
+
+    //添加  uid=2&username=zhangsan&
     @PostMapping("addUser")
     public String addUser(@RequestBody User user) {
         //处理
@@ -67,5 +70,15 @@ public class UserController {
         return "no";
     }
 
+    /*处理登录*/
+    @PostMapping("login")
+    public String login(@RequestBody User user) {
+        //处理
+        User u = userService.login(user);
+        if (u != null) {
+            return "ok";
+        }
+        return "no";
+    }
 
 }
