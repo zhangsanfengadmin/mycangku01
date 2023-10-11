@@ -14,7 +14,7 @@ import java.util.List;
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
-
+    String   name;
     /*获取所有订单*/
     @GetMapping("page/{pageNum}/{pageSize}")
     public PageInfo<Orders> showOrders(@PathVariable("pageNum") Integer pageNum,
