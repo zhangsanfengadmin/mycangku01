@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 //角色
 //绑定表
-@Table(name = "t_role")
+@Table(name = "role")
 public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)

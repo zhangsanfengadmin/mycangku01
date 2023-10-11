@@ -1,5 +1,6 @@
 package com.baidu.controller;
 
+import com.baidu.pojo.Result;
 import com.baidu.pojo.Role;
 import com.baidu.pojo.User;
 import com.baidu.service.RoleService;
@@ -9,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Value("${spring.servlet.multipart.location}")
+    private String contractPdfFilePath;
 
     //get请求
     @GetMapping("showPage")
@@ -50,7 +54,6 @@ public class UserController {
     //修改
     @PostMapping("updateUser")
     public String updateUser(@RequestBody User user) {
-        System.out.println(user.getBirth());
         //处理
         int len = userService.updateUser(user);
         if (len > 0) {
@@ -61,7 +64,9 @@ public class UserController {
 
     //添加  uid=2&username=zhangsan&
     @PostMapping("addUser")
-    public String addUser(@RequestBody User user) {
+    public String addUser(@RequestBody User user, @RequestParam("fname") String fname) {
+        System.out.println(fname);
+        user.setImg(fname);
         //处理
         int len = userService.addUser(user);
         if (len > 0) {
@@ -71,14 +76,22 @@ public class UserController {
     }
 
     /*处理登录*/
-    @PostMapping("login")
-    public String login(@RequestBody User user) {
+    @PostMapping("sys-user/login")
+    public Result<User> login(@RequestBody User user) {
+        System.out.println(user.getUsername()+"-"+user.getRid());
+        Result<User> result = new Result<>();
         //处理
         User u = userService.login(user);
-        if (u != null) {
-            return "ok";
+        if (u != null) {//登录成功
+            result.setMessage("登录成功");
+            result.setSuccess(true);
+            result.setResult(u);
+        } else {//失败
+            result.setMessage("用户名或者密码错误");
+            result.setSuccess(false);
+
         }
-        return "no";
+        return result;
     }
 
 }

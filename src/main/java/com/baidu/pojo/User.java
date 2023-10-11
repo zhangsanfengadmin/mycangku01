@@ -2,9 +2,11 @@ package com.baidu.pojo;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+@Table(name = "user")
 public class User implements Serializable {
     private Integer uid;
     private String username;
@@ -13,6 +15,24 @@ public class User implements Serializable {
     private String phone;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;//日期
+    private String img;//头像
+    private Integer rid;
+
+    public Integer getRid() {
+        return rid;
+    }
+
+    public void setRid(Integer rid) {
+        this.rid = rid;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public Date getBirth() {
         return birth;

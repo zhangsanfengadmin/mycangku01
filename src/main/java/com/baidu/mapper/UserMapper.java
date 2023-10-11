@@ -12,10 +12,10 @@ public interface UserMapper {
 
     void delById(Integer uid);
 
-    @Update("update  user  set  username=#{username},password=#{password},address=#{address},phone=#{phone},birth=#{birth} where  uid=#{uid}")
+    @Update("update  user  set  username=#{username},password=#{password},address=#{address},phone=#{phone},birth=#{birth},img=#{img} where  uid=#{uid}")
     int update(User user);
 
-    @Insert("insert  into  user values(null,#{username},#{password},#{address},#{phone})")
+    @Insert("insert  into  user(username,password,address,phone,birth,img) values(#{username},#{password},#{address},#{phone},#{birth},#{img})")
     int addUser(User user);
 
     @Select("select    *  from   user  where   username=#{username}  and  password=#{password}")

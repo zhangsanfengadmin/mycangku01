@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.mapper.OrdersMapper">
+    <resultMap id="oResult" type="Orders">
+        <id column="code" property="code"></id>
+        <result property="price" column="price"></result>
+        <result property="status" column="status"></result>
+        <result property="customerName" column="cname"></result>
+        <result property="tel" column="tel"></result>
+    </resultMap>
+    <!--查询-->
+    <select id="getOrders" resultMap="oResult">
+        select  o.*,c.cname ,c.tel from    orders o,customer  c
+        where   o.cid=c.cid
+    </select>
+</mapper>
